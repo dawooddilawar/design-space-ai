@@ -19,7 +19,7 @@ export async function processImage(
       "black-forest-labs/flux-canny-pro",
       {
         input: {
-          control_image: "https://i.ibb.co/2gT437t/klkpk2f3yw4e1.jpg",
+          control_image: imageUrl,
           prompt: style.promptModifier,
           guidance: 25,
           num_inference_steps: 28,
