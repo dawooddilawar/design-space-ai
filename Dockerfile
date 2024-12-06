@@ -45,7 +45,8 @@ COPY --from=builder --chown=nextjs:nodejs /app/src/lib/db ./src/lib/db
 COPY --from=builder --chown=nextjs:nodejs /app/drizzle.config.ts ./
 
 # Copy startup script
-COPY --chmod=755 start.sh ./
+COPY --from=builder --chown=nextjs:nodejs /app/start.sh ./
+RUN chmod +x start.sh
 
 ENV NODE_ENV=production
 ENV PORT=3000
