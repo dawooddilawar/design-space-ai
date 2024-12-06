@@ -42,6 +42,7 @@ COPY --from=builder --chown=nextjs:nodejs /app/package.json ./
 
 # Copy DB schema and drizzle config
 COPY --from=builder --chown=nextjs:nodejs /app/src/lib/db ./src/lib/db
+COPY --from=builder --chown=nextjs:nodejs /app/src/lib/env.ts ./src/lib/env.ts
 COPY --from=builder --chown=nextjs:nodejs /app/drizzle.config.ts ./
 
 # Copy startup script
