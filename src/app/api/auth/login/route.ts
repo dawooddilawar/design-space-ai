@@ -1,3 +1,4 @@
+export const runtime = 'nodejs'
 import { eq } from "drizzle-orm";
 import { cookies } from "next/headers";
 import { Argon2id } from "oslo/password";

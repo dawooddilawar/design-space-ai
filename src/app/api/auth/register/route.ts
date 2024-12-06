@@ -1,4 +1,6 @@
 // src/app/api/auth/register/route.ts
+export const runtime = 'nodejs'
+
 import { eq } from "drizzle-orm";
 import { generateId } from "lucia";
 import { cookies } from "next/headers";

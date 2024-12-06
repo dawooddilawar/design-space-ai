@@ -1,3 +1,5 @@
+export const runtime = 'nodejs'
+
 import { nanoid } from 'nanoid';
 
 export async function POST(

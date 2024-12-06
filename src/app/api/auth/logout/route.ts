@@ -1,5 +1,6 @@
-import { cookies } from "next/headers";
+export const runtime = 'nodejs'
 
+import { cookies } from "next/headers";
 import { auth as lucia } from "@/lib/auth/lucia";
 
 export async function POST(request: Request) {

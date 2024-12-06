@@ -1,3 +1,5 @@
+export const runtime = 'nodejs'
+
 // src/app/api/upload/route.ts
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';

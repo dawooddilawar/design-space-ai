@@ -1,4 +1,6 @@
 // src/app/api/projects/route.ts
+export const runtime = 'nodejs'
+
 import { auth } from "@/lib/auth/lucia";
 import { db } from "@/lib/db";
 import { projects, images } from "@/lib/db/schema";

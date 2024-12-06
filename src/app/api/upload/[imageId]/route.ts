@@ -1,3 +1,5 @@
+export const runtime = 'nodejs'
+
 import { eq } from 'drizzle-orm';
 import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
