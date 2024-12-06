@@ -21,16 +21,13 @@ FROM node:20-alpine AS runner
 
 WORKDIR /app
 
-# Install necessary tools for the startup script
-RUN apk add --no-cache bash
-
 # Create a non-root user
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
 # Set the correct permissions
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
+RUN mkdir -p .next src/lib
+RUN chown -R nextjs:nodejs .next src/lib
 
 # Copy standalone build and necessary files
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
@@ -39,19 +36,18 @@ COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/drizzle ./drizzle
 COPY --from=builder --chown=nextjs:nodejs /app/node_modules ./node_modules
 COPY --from=builder --chown=nextjs:nodejs /app/package.json ./
+COPY --from=builder --chown=nextjs:nodejs /app/tsconfig.json ./
 
-# Copy DB schema and drizzle config
+# Copy DB schema, config, and env file
 COPY --from=builder --chown=nextjs:nodejs /app/src/lib/db ./src/lib/db
 COPY --from=builder --chown=nextjs:nodejs /app/src/lib/env.ts ./src/lib/env.ts
 COPY --from=builder --chown=nextjs:nodejs /app/drizzle.config.ts ./
-
-# Copy startup script
-COPY --from=builder --chown=nextjs:nodejs /app/start.sh ./
-RUN chmod +x start.sh
 
 ENV NODE_ENV=production
 ENV PORT=3000
 
 EXPOSE 3000
 
-CMD ["./start.sh"]
+USER nextjs
+
+CMD ["node", "server.js"]
