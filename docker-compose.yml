@@ -9,11 +9,13 @@ services:
     environment:
       - VIRTUAL_HOST=designspaceai.dawood.design
       - LETSENCRYPT_HOST=designspaceai.dawood.design
-      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ENDPOINT=${MINIO_ENDPOINT}
+      - MINIO_PORT=${MINIO_PORT}
       - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
       - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
-      - PUBLIC_MINIO_ENDPOINT=https://minio.designspaceai.dawood.design
+      - MINIO_PUBLIC_URL=${MINIO_PUBLIC_URL}
       - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      - LUCIA_AUTH_SECRET=${LUCIA_AUTH_SECRET}
     depends_on:
       - postgres
       - minio
