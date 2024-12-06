@@ -1,4 +1,4 @@
-// src/app/api/process/[imageId]/status/route.ts
+// src/app/api/process/[projectId]/status/route.ts
 import { eq } from "drizzle-orm";
 import { cookies } from 'next/headers';
 import { NextResponse } from "next/server";

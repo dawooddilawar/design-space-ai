@@ -12,7 +12,8 @@ export function Header() {
 
   const navigation = [
     { name: "Dashboard", href: "/dashboard" },
-    // Add more navigation items here as needed
+    { name: "Gallery", href: "/gallery" },
+    { name: "Projects", href: "/projects" },
   ];
 
   return (

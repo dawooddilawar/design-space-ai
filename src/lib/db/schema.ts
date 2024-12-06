@@ -1,5 +1,6 @@
 // src/lib/db/schema.ts
 import { pgTable, text, timestamp, boolean, uuid } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
 
 export const users = pgTable("user", {
   id: text("id").primaryKey(),
@@ -47,7 +48,6 @@ export const images = pgTable("image", {
   }).default("pending"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});timestamp("updated_at").defaultNow().notNull(),
 });
 
 export const projects = pgTable("project", {
@@ -60,3 +60,15 @@ export const projects = pgTable("project", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
+
+// Define relations
+export const projectsRelations = relations(projects, ({ many }) => ({
+  images: many(images),
+}));
+
+export const imagesRelations = relations(images, ({ one }) => ({
+  project: one(projects, {
+    fields: [images.projectId],
+    references: [projects.id],
+  }),
+}));

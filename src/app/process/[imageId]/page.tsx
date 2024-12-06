@@ -1,4 +1,4 @@
-// src/app/process/[imageId]/page.tsx
+// src/app/process/[projectId]/page.tsx
 "use client";
 
 import { ArrowLeft } from "lucide-react";
