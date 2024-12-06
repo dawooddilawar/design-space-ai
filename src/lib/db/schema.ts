@@ -35,12 +35,28 @@ export const images = pgTable("image", {
   userId: text("user_id")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
+  projectId: uuid("project_id")
+    .references(() => projects.id, { onDelete: "set null" }),
   originalUrl: text("original_url").notNull(),
   processedUrl: text("processed_url"),
-  styleId: text("style_id").references(() => styles.id), // Changed from uuid to text
+  styleId: text("style_id"),
+  roomType: text("room_type"),
+  shareToken: text("share_token").unique(),
   status: text("status", {
     enum: ["pending", "processing", "completed", "failed"],
   }).default("pending"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const projects = pgTable("project", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  name: text("name").notNull(),
+  description: text("description"),
+  userId: text("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
