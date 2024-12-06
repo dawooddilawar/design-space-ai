@@ -1,0 +1,39 @@
+# docker-compose.yml
+version: '3.3'
+
+services:
+  nextjs:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - VIRTUAL_HOST=designspaceai.dawood.design
+      - LETSENCRYPT_HOST=designspaceai.dawood.design
+      - MINIO_ENDPOINT=minio:9000
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
+      - NEXT_PUBLIC_MINIO_ENDPOINT=https://minio.designspaceai.dawood.design
+    restart: always
+    networks:
+      - proxy-network
+
+  minio:
+    image: minio/minio
+    environment:
+      - VIRTUAL_HOST=minio.designspaceai.dawood.design
+      - LETSENCRYPT_HOST=minio.designspaceai.dawood.design
+      - MINIO_ROOT_USER=${MINIO_ACCESS_KEY}
+      - MINIO_ROOT_PASSWORD=${MINIO_SECRET_KEY}
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    restart: always
+    networks:
+      - proxy-network
+
+volumes:
+  minio_data:
+
+networks:
+  proxy-network:
+    external: true

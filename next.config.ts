@@ -1,13 +1,17 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
+const nextConfig = {
+  output: 'standalone',
   images: {
-    domains: [
-      'localhost',           // For local MinIO server
-      '127.0.0.1',          // Alternative localhost
-      process.env.MINIO_ENDPOINT, // For production MinIO server
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'minio.designspaceai.dawood.design',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
-};
+}
 
 export default nextConfig;
