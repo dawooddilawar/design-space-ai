@@ -5,8 +5,6 @@ import { z } from 'zod';
 const envSchema = z.object({
   DATABASE_URL: z.string().min(1, "DATABASE_URL is required"),
   LUCIA_AUTH_SECRET: z.string().min(1, "LUCIA_AUTH_SECRET is required"),
-  RESEND_API_KEY: z.string().min(1, "RESEND_API_KEY is required"),
-  UPLOAD_DIR: z.string().min(1, "UPLOAD_DIR is required"),
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   MINIO_ENDPOINT: z.string().min(1),
   MINIO_PORT: z.string().transform(Number),
@@ -26,8 +24,6 @@ try {
 export const env = {
   DATABASE_URL: process.env.DATABASE_URL!,
   LUCIA_AUTH_SECRET: process.env.LUCIA_AUTH_SECRET!,
-  RESEND_API_KEY: process.env.RESEND_API_KEY!,
-  UPLOAD_DIR: process.env.UPLOAD_DIR!,
   NODE_ENV: process.env.NODE_ENV as 'development' | 'production' | 'test',
   MINIO_ENDPOINT: process.env.MINIO_ENDPOINT,
   MINIO_PORT: process.env.MINIO_PORT,
